@@ -1,3 +1,4 @@
+  
 ##################
 # shared methods #
 ##################
@@ -46,20 +47,36 @@ end
 
 
 def hit?(card_total)
+  valid_inputs = ["h", "s"]
+
   prompt_user
   user_input = get_user_input
+
+  until valid_inputs.include?(user_input)
+    invalid_command
+    prompt_user
+    user_input = get_user_input
+  end
+
   if user_input == "h"
     card_total += deal_card
-  elsif user_input == "s"
-    card_total
-  else
-    invalid_command
   end
+  card_total
+  
+  ## Alternative solution - this solution calls hit? recursively if given an invalid command
+  # if user_input == "h"
+  #   card_total += deal_card
+  # elsif user_input == "s"
+  #   card_total
+  # else
+  #   invalid_command
+  #   hit?(card_total)
+  # end
+  
 end
 
 def invalid_command
-  puts "Sorry, not a valid command"
-  get_user_input
+  puts "Please enter a valid command"
 end
 
 ##########
@@ -75,3 +92,4 @@ def runner
   end
   end_game(card_total)
 end
+    
